@@ -64,25 +64,42 @@ def chatbot_response(msg):
     ints = predict_class(msg, model)
     res = getResponse(ints, intents)
 
-    # store the msg and res in response.json as an object named Message with a key of the current date and time on a new line every time
-    now = datetime.datetime.now()
-    date = now.strftime("%d-%m-%Y")
-    time = now.strftime("%H:%M:%S")
-    response = {
-        # json structure with an object named Message with a key of the current date and time on a new line every time
-        "Message": {
-            "Date": date,
-            "Time": time,
-            "Message": msg,
-            "Response": res
+    # Every time the function is called a new json file is generated in the responses folder with the name response+datetime.json and it will store the msg and the response with the date and time
+    with open('responses/response'+datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")+'.json', 'w') as outfile:
+        now = datetime.datetime.now()
+        time = now.strftime("%Y-%m-%d %H:%M:%S")
+        date = now.strftime("%Y-%m-%d")
+        tag = ints[0]['intent']
+        response = {
+            "Message": {
+                "IntentType": tag,
+                "Date": date,
+                "Time": time,
+                "Message": msg,
+                "Response": res
+            }
         }
-    }
-    with open('response.json', 'a') as outfile:
-        # if there is no content in the file don't start a new line 
-        if os.stat('response.json').st_size == 0:
-            json.dump(response, outfile)
-        else:
-            outfile.write('\n')
-            json.dump(response, outfile)
+        json.dump(response, outfile)
+
+    # store the msg and res in response.json as an object named Message with a key of the current date and time on a new line every time
+    # now = datetime.datetime.now()
+    # date = now.strftime("%d-%m-%Y")
+    # time = now.strftime("%H:%M:%S")
+    # response = {
+    #     # json structure with an object named Message with a key of the current date and time on a new line every time
+    #     "Message": {
+    #         "Date": date,
+    #         "Time": time,
+    #         "Message": msg,
+    #         "Response": res
+    #     }
+    # }
+    # with open('response.json', 'a') as outfile:
+    #     # if there is no content in the file don't start a new line 
+    #     if os.stat('response.json').st_size == 0:
+    #         json.dump(response, outfile)
+    #     else:
+    #         outfile.write('\n')
+    #         json.dump(response, outfile)
     
     return res
