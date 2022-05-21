@@ -1,3 +1,5 @@
+import datetime
+import os
 import nltk
 from nltk.stem import WordNetLemmatizer
 lemmatizer = WordNetLemmatizer()
@@ -61,4 +63,26 @@ def getResponse(ints, intents_json):
 def chatbot_response(msg):
     ints = predict_class(msg, model)
     res = getResponse(ints, intents)
+
+    # store the msg and res in response.json as an object named Message with a key of the current date and time on a new line every time
+    now = datetime.datetime.now()
+    date = now.strftime("%d-%m-%Y")
+    time = now.strftime("%H:%M:%S")
+    response = {
+        # json structure with an object named Message with a key of the current date and time on a new line every time
+        "Message": {
+            "Date": date,
+            "Time": time,
+            "Message": msg,
+            "Response": res
+        }
+    }
+    with open('response.json', 'a') as outfile:
+        # if there is no content in the file don't start a new line 
+        if os.stat('response.json').st_size == 0:
+            json.dump(response, outfile)
+        else:
+            outfile.write('\n')
+            json.dump(response, outfile)
+    
     return res
