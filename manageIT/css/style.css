@@ -1,0 +1,52 @@
+.w-450 {
+	width: 450px;
+}
+.vh-100 {
+	min-height: 100vh;
+}
+
+.bg-412 {
+	background-color: #222831;
+}
+
+.bgformlight {
+	background-color: #393E46;
+}
+
+.white {
+	color: #EEEEEE;
+}
+
+.btn-purple {
+	background-color: #222831;
+	border-radius: 5px;
+	color: #EEEEEE;
+	padding: 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+}
+
+.btn-purple:hover, .btn-purple:focus {
+	transform: scale(1.05);
+}
+
+.btn-purple-long {
+	background-color: #222831;
+	border-radius: 5px;
+	color: #EEEEEE;
+	padding: 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+}
+
+.btn-purple-long:hover, .btn-purple-long:focus {
+	transform: scale(1.05);
+}
